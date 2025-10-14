@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vantage Hall Chatbot</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ededed 0%, #672828 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("https://www.schoolsofdehradun.com/wp-content/uploads/2020/05/Vantage-Hall-Girls-Residential-School.jpeg") center/cover no-repeat;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        body > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .chat-toggle svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        .chat-toggle.active {
+            background: #e74c3c;
+        }
+
+        .chat-bubble {
+            position: fixed;
+            bottom: 115px;
+            right: 30px;
+            background: linear-gradient(135deg, #1206f9 0%, #58f9e9 100%);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 20px;
+            border-bottom-right-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            animation: bubbleBounce 2s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.3s ease;
+        }
+
+        .chat-bubble.hidden {
+            display: none;
+        }
+
+        @keyframes bubbleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .wave-emoji {
+            display: inline-block;
+            animation: wave 1s ease-in-out infinite;
+            font-size: 20px;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(20deg); }
+            75% { transform: rotate(-20deg); }
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #7763de;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            border: 3px solid white;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 400px;
+            max-width: calc(100vw - 40px);
+            height: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 999;
+            animation: slideUp 0.3s ease;
+        }
+
+        .chat-container.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #2b00ff 0%, #ffffff57 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chat-header-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .chat-header-info h3 {
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+
+        .chat-header-info p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .quick-replies {
+            padding: 10px 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .quick-reply-btn {
+            padding: 8px 14px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .quick-reply-btn:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .chat-input input:focus {
+            border-color: #667eea;
+        }
+
+        .chat-input button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.05);
+        }
+
+        .chat-input button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            max-width: 75px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background: #999;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+            margin-right: 0;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 480px) {
+            .chat-container {
+                bottom: 100px;
+                right: 20px;
+                left: 20px;
+                width: auto;
+                max-width: none;
+                height: 500px;
+            }
+
+            .chat-toggle {
+                right: 20px;
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-bubble" id="chatBubble">
+        <span class="wave-emoji">👋</span>
+        We Are Here!
+    </div>
+
+    <button class="chat-toggle" id="chatToggle">
+        <span class="notification-badge">1</span>
+        <svg viewBox="0 0 24 24" class="chat-icon">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+        <svg viewBox="0 0 24 24" class="close-icon" style="display: none;">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+    </button>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+    <div class="chat-header-avatar">
+        <img src="https://tse4.mm.bing.net/th/id/OIP.ObhPteB_2loAm-xq-0Sw9AHaHa?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" 
+             alt="Vantage Hall Logo" 
+             style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+    </div>
+    <div class="chat-header-info">
+        <h3>Vantage Hall Assistant</h3>
+        <p>Online • Always here to help</p>
+    </div>
+</div>
+
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-content">Hello! 👋 Welcome to Vantage Hall Girls' Residential School, Dehradun! I'm here to help you with information about admissions, facilities, curriculum, and more. How can I assist you today?</div>
+            </div>
+            <div class="message bot">
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-replies" id="quickReplies">
+            <button class="quick-reply-btn" data-reply="Admission">Admissions</button>
+            <button class="quick-reply-btn" data-reply="Fee">Fee Structure</button>
+            <button class="quick-reply-btn" data-reply="Hostel">Hostel</button>
+            <button class="quick-reply-btn" data-reply="Contact">Contact Us</button>
+            <button class="quick-reply-btn" data-reply="Sports">Sports</button>
+            <button class="quick-reply-btn" data-reply="Curriculum">Curriculum</button>
+             <button class="quick-reply-btn" data-reply="career">career Guidance services</button>
+        </div>
+
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button id="sendBtn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const chatToggle = document.getElementById('chatToggle');
+        const chatContainer = document.getElementById('chatContainer');
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const quickReplies = document.getElementById('quickReplies');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const chatIcon = document.querySelector('.chat-icon');
+        const closeIcon = document.querySelector('.close-icon');
+
+        // COMPREHENSIVE KNOWLEDGE BASE
+        const responses = {
+            'contact': {
+                keywords: ['contact', 'phone', 'email', 'address', 'location', 'reach', 'call', 'visit', 'where', 'number', 'kaha', 'kahan', 'sampark'],
+                answer: "📍 Vantage Hall Girls' Residential School\nThe Yellow Brick Road, Doonga\nDehradun - 248007, Uttarakhand\n\n📞 General Queries: 0135-2776225, 226, 227, 228\n📧 info@vantagehall.org\n\n👤 Admissions:\n📞 +91-8191912999, +91-7078311863\n📧 admissions@vantagehall.org"
+            },
+            'vision': {
+                keywords: ['vision', 'mission', 'goal', 'objective', 'purpose', 'about', 'school', 'lakshya'],
+                answer: "🎯 Our Vision & Mission:\n\nTo nurture happy, independent, and unique individuals in a safe and supportive environment."
+            },
+            'curriculum': {
+                keywords: ['curriculum', 'board', 'cbse', 'syllabus', 'academics', 'subject', 'padhate', 'teach', 'study', 'padhai'],
+                answer: "📚 We follow the CBSE curriculum\n\n🎓 Streams Offered (Classes 11-12):\n• Science\n• Commerce\n• Humanities\n\nOur curriculum emphasizes holistic development beyond textbooks, preparing students for a global future."
+            },
+            'timings': {
+                keywords: ['timing', 'time', 'hour', 'schedule', 'start', 'kab', 'samay', 'kitne baje'],
+                answer: "🕐 School Timings:\n\n• Grades 3-9: 7:45 AM - 12:55 PM\n• Grades 10-12: 7:45 AM - 1:35 PM\n• Activity Classes: 2:45 PM - 4:05 PM"
+            },
+            'ratio': {
+                keywords: ['ratio', 'student', 'teacher', 'class size', 'kitne', 'students per'],
+                answer: "👩‍🏫 Student-Teacher Ratio: 1:5\n\nWe maintain small class sizes to ensure personalized attention and effective learning for every student."
+            },
+            'achievements': {
+                keywords: ['achievement', 'award', 'recognition', 'highlight', 'best', 'excellence', 'ranking'],
+                answer: "🏆 Key Highlights:\n\n✨ Academic Excellence\n✨ Holistic Development\n✨ Sports Achievements\n✨ Modern Infrastructure & Facilities\n✨ Dedicated Pastoral Care & Well-being\n✨ International Exposure\n\nRecognized by Outlook India & Education World Magazine!"
+            },
+            'eligibility': {
+                keywords: ['eligibility', 'eligible', 'criteria', 'qualify', 'who can', 'age', 'yogyata'],
+                answer: "📝 Eligibility Criteria:\n\n✅ Classes: 3-12\n✅ Age: As per CBSE guidelines\n✅ Eligibility: Successful completion of the previous grade from a recognized school\n✅ Required: Transfer Certificate and Report Card with consistent academic performance\n\n⚠️ Note: Admission to Class 10 is considered only in exceptional cases (as it is a board year)"
+            },
+            'admission': {
+                keywords: ['admission', 'admit', 'enroll', 'join', 'apply', 'process', 'pravesh', 'dakhila'],
+                answer: "📝 Admission Process:\n\n✅ Step 1: Written Test (English, Mathematics, and Science)\n✅ Step 2: Interaction with the Principal\n✅ Step 3: Interaction with the Director\n\n📅 Registrations: September-October\n📅 Session Starts: April\n\n📞 Contact for Admissions:\n+91-8191912999, +91-7078311863\n📧 admissions@vantagehall.org"
+            },
+            'documents': {
+                keywords: ['document', 'paper', 'certificate', 'required', 'need', 'bring', 'kaagaz', 'praman patra'],
+                answer: "📄 Required Documents:\n\n• Student's Birth Certificate & Aadhaar Card\n• Parents' Aadhaar Cards\n• Parents' PAN Cards\n• Mark sheet of the last examination\n• Original Transfer Certificate\n• Medical Fitness Certificate\n• Student's PEN Number / APAAR ID"
+            },
+            'fee': {
+                keywords: ['fee', 'fees', 'cost', 'tuition', 'charge', 'payment', 'price', 'expensive', 'kitna', 'shulk', 'kharcha'],
+                answer: "💰 Fee Structure:\n\n📌 Classes 3-7:\nAnnual: ₹5,50,000\nOne-time: ₹1,85,000\nTotal: ₹7,35,000\n\n📌 Classes 8-10:\nAnnual: ₹6,50,000\nOne-time: ₹1,85,000\nTotal: ₹8,35,000\n\n📌 Classes 11-12:\nAnnual: ₹7,00,000\nOne-time: ₹1,85,000\nTotal: ₹8,85,000\n\n*One-time fees include registration, joining kit, imprest deposit & admission fee"
+            },
+            'streams': {
+                keywords: ['stream', 'science', 'commerce', 'humanities', 'subject', 'arts', 'विषय'],
+                answer: "🎓 Streams Offered (Classes 11-12):\n\n• Science\n• Commerce\n• Humanities\n\nStudents can choose based on their interests and career goals!"
+            },
+            'exams': {
+                keywords: ['exam', 'test', 'assessment', 'evaluation', 'mark', 'pariksha', 'paper'],
+                answer: "📝 Examination System:\n\n• Unit Tests: Twice a year\n• Mid-Term / Half-Yearly Exams\n• Final / Annual Exams (comprehensive)\n\n✅ Remedial and academic support classes are provided beyond regular hours."
+            },
+            'remedial': {
+                keywords: ['remedial', 'extra class', 'coaching', 'support', 'help', 'tuition', 'madad'],
+                answer: "✅ Yes! Remedial and academic support classes are provided beyond regular teaching hours to help students who need extra attention."
+            },
+            'hostel': {
+                keywords: ['hostel', 'boarding', 'residential', 'accommodation', 'room', 'stay', 'live', 'rehna'],
+                answer: "🏡 Hostel Facilities:\n\n✨ Well-furnished dormitories with beds, storage, study tables & wardrobes\n✨ Separate hostels for juniors & seniors\n✨ Regular laundry service\n✨ Daily housekeeping\n✨ 24/7 supervision by wardens\n✨ Controlled Wi-Fi access\n✨ Safe & supportive environment"
+            },
+            'hostel_rules': {
+                keywords: ['hostel rule', 'discipline', 'regulation', 'guideline', 'niyam'],
+                answer: "📋 Hostel Guidelines:\n\n• Fixed return & bedtime schedules\n• Morning roll call mandatory\n• Evening study/prep attendance required\n• Respectful behavior expected\n• Polite language & proper conduct enforced\n\nWe maintain a structured yet caring environment for all students."
+            },
+            'food': {
+                keywords: ['food', 'dining', 'menu', 'meal', 'lunch', 'dinner', 'breakfast', 'diet', 'khana', 'bhojan'],
+                answer: "🍽️ Dining & Nutrition:\n\n✅ Nutritionist-planned meals\n✅ Special diets for athletes & medical needs\n✅ Veg & non-veg options\n✅ Menu rotates every 15 days\n\n🥗 Daily Meals:\n• Breakfast: Fruits, cereals, milk, eggs, bread/parathas\n• Mid-Morning: Fruits & snacks\n• Lunch: Dal, rice/roti, vegetables, salad\n• Evening: Sandwich, fruit, or soup\n• Dinner: Similar to lunch with variety\n• Night Milk: Mandatory\n\nView sample menu: vantagehall.org/food-nutrition/"
+            },
+            'leave': {
+                keywords: ['leave', 'outing', 'out', 'weekend', 'holiday', 'vacation', 'chutti', 'bahar'],
+                answer: "📅 Leave & Outing Policy:\n\nLeave and outing schedules are mentioned in the Academic Calendar provided at the start of each session."
+            },
+            'medical': {
+                keywords: ['medical', 'doctor', 'infirmary', 'health', 'sick', 'emergency', 'hospital', 'bimar', 'dawakhana'],
+                answer: "🏥 Medical Care:\n\n✅ On-campus infirmary with qualified nurse/doctor\n✅ Daily doctor visits\n✅ 24/7 first-aid available\n✅ Emergency tie-ups with:\n   • Max Hospital\n   • Synergy Hospital\n   • Graphic Era Hospital\n✅ Comprehensive health records maintained"
+            },
+            'safety': {
+                keywords: ['safety', 'security', 'cctv', 'safe', 'protection', 'guard', 'suraksha'],
+                answer: "🔒 Safety & Security:\n\n✅ 24/7 wardens & security staff\n✅ CCTV in common areas (corridors, dining, entrances, playgrounds)\n✅ Strict access control\n✅ Visitor entry with ID verification only\n✅ Entry/exit logs maintained\n✅ No cameras in hostel rooms (privacy protected)"
+            },
+            'sports': {
+                keywords: ['sport', 'game', 'athletic', 'physical', 'football', 'cricket', 'basketball', 'khel'],
+                answer: "⚽ Sports & Athletics:\n\nWe offer training under qualified coaches in:\n\n🏃‍♀️ Football, Cricket, Basketball, Volleyball\n🎾 Squash, Badminton, Lawn Tennis, Table Tennis\n⛸️ Skating, Gymnasium, Swimming\n♟️ Indoor Games: Carrom, Chess\n\nPhysical education is integral to our holistic approach!"
+            },
+            'clubs': {
+                keywords: ['club', 'activity', 'extracurricular', 'societie', 'hobby'],
+                answer: "🎨 Clubs & Societies:\n\n• Art Club\n• Culinary Club\n• Dance & Music Club\n• Theatre Club\n• Finance & Maths Club\n• IT Club\n• Science Club\n• Photography Club\n• Sustainability Club\n• Editorial Board\n• Arts & Design Club\n\nStudents can explore their passions beyond academics!"
+            },
+            'events': {
+                keywords: ['event', 'annual', 'cultural', 'celebration', 'function', 'program', 'karyakram'],
+                answer: "🎭 Events & Celebrations:\n\n🎉 Annual Day\n🏆 Sports Day\n🇮🇳 Independence & Republic Day\n🎓 Educational Trips & Excursions\n🪔 Festive Celebrations\n🏅 Inter-House Competitions\n⭐ Talent & Leadership Programs"
+            },
+            'leadership': {
+                keywords: ['leadership', 'prefect', 'council', 'house', 'captain', 'neta', 'netritva'],
+                answer: "👑 Leadership Opportunities:\n\nYes! Students can take leadership roles through:\n\n✨ House System\n✨ Prefectship\n✨ Student Council\n\nThese roles help build confidence, communication skills, and responsibility."
+            },
+            'trips': {
+                keywords: ['trip', 'excursion', 'tour', 'travel', 'outing', 'field', 'ghoomna', 'yatra'],
+                answer: "🚌 Trips & Excursions:\n\n📍 Term-End Trips:\nKanatal, Manali, Shimla, Mumbai, Goa, Jim Corbett (grade-wise)\n\n📍 Educational Trips:\nScience Centre, Dehradun Zoo, FRI, IMA, Monastery, Banks, Museums, Govt. Schools\n\n📍 Treks/Day Trips:\nBhadraj Temple, Than Gaon, Doonga treks, Mussoorie\n\n📍 Local Visits:\nPacific Mall, Mall of Dehradun, Centrio Mall"
+            },
+            'parent_communication': {
+                keywords: ['parent', 'update', 'communication', 'tracking', 'portal', 'app', 'matapita', 'jaankari'],
+                answer: "📱 Parent Communication:\n\n✅ ERP system (attendance, academics, calendar, photos/videos)\n✅ Email & WhatsApp updates\n✅ Weekly parent-student calls (Sundays, 45 mins)\n✅ Special calls on birthdays/anniversaries\n✅ PTMs: 4 times a year (online & offline)\n\nParents can track everything via the ERP portal!"
+            },
+            'ptm': {
+                keywords: ['ptm', 'parent teacher', 'meeting', 'conference', 'baithak'],
+                answer: "👨‍👩‍👧 Parent-Teacher Meetings:\n\n✅ Conducted 4 times in an academic year\n✅ Available both Online & Offline\n✅ Parents can discuss student progress directly with teachers"
+            },
+            'erp': {
+                keywords: ['erp', 'portal', 'online', 'tracking', 'system', 'app'],
+                answer: "💻 ERP System:\n\nYes! We use the Edunext ERP system.\n\nParents can access:\n✅ Attendance\n✅ Academic performance\n✅ Event calendar\n✅ Photos & videos\n✅ Fee payments\n\nAccessible anytime from anywhere!"
+            },
+            'visiting': {
+                keywords: ['visit', 'parent visit', 'meet', 'milna', 'mulakat'],
+                answer: "👨‍👩‍👧 Visiting Policy:\n\nParents may visit hostels at the time of admission.\n\nDuring the year, visits require prior permission to ensure student safety and routine discipline."
+            },
+            'counseling': {
+                keywords: ['counseling', 'counselor', 'psychologist', 'mental', 'stress', 'support', 'paramarsh'],
+                answer: "🧠 Counseling & Support:\n\n✅ Dedicated school counselor available\n✅ Psychological & emotional support\n✅ Confidential one-on-one sessions\n\n🛡️ Zero-tolerance policy against bullying\nStudents can confidentially approach Director, Principal, or Pastoral Care team."
+            },
+            'career': {
+                keywords: ['career', 'guidance', 'college', 'university', 'neet', 'jee', 'clat', 'sat', 'course'],
+                answer: "🎯 Career Guidance:\n\nWe offer career counseling for Grades 8-12, including preparation for:\n\n✅ Medical (NEET)\n✅ Engineering (JEE)\n✅ Law (CLAT, AILET)\n✅ Management (IPM, NMIMS, Symbiosis, Christ)\n✅ Humanities (Ashoka, OP Jindal, Symbiosis, Christ)\n✅ Design (NIFT, UCEED)\n✅ SAT & AP (foreign universities)\n\n1-on-1 guidance sessions and workshops available!"
+            },
+            'bullying': {
+                keywords: ['bully', 'harassment', 'report', 'problem', 'issue', 'complaint', 'pareshan'],
+                answer: "🛡️ Anti-Bullying Policy:\n\n✅ Zero-tolerance policy against bullying or harassment\n✅ Students may directly approach:\n   • Director\n   • Principal\n   • Pastoral Care team\n✅ Confidential one-on-one sessions available\n\nYour safety and well-being is our priority!"
+            },
+            'staff': {
+                keywords: ['staff', 'principal', 'director', 'teacher', 'run', 'administration', 'adhikari', 'shikshak'],
+                answer: "👥 Key Staff Members:\n\n• Principal\n• Director\n• HOD Pastoral Care\n• House Mothers\n• Medical Staff\n• Qualified Teachers & Coaches\n\nOur team is dedicated to nurturing every student's potential!"
+            },
+            'emergency': {
+                keywords: ['emergency', 'urgent', 'announce', 'notification', 'aapatkaal'],
+                answer: "🚨 Emergency Communication:\n\n✅ Formal updates via Email and ERP\n✅ Urgent matters (e.g., medical emergencies) - Parents are informed via direct phone calls\n\nWe ensure timely communication for all important matters."
+            },
+            'girls_school': {
+                keywords: ['girl', 'female', 'ladki', 'balika', 'only', 'why girls'],
+                answer: "👭 Why All-Girls School?\n\nVantage Hall is proud to be an all-girls institution because:\n\n✨ Creates future female leaders\n✨ Equal opportunities without gender bias\n✨ Celebrates female strength & achievement\n✨ Supportive environment for free expression\n✨ Builds confidence & self-reliance\n\nOur girls-only environment allows students to explore their full potential!"
+            },
+            'privacy': {
+                keywords: ['privacy', 'confidential', 'data', 'information', 'gopi'],
+                answer: "🔒 Privacy Policy:\n\nThe chatbot strictly follows privacy guidelines and will never share personal or confidential student information.\n\nFor specific student-related queries, please contact the school directly."
+            },
+            'wifi': {
+                keywords: ['wifi', 'internet', 'network', 'online', 'web'],
+                answer: "📶 Wi-Fi Access:\n\n✅ Controlled Wi-Fi access in hostels\n✅ Restricted to study hours\n✅ Monitored for student safety\n✅ Available in common areas and study halls"
+            },
+            'laundry': {
+                keywords: ['laundry', 'clothes', 'wash', 'kapde', 'dhona'],
+                answer: "🧺 Laundry Service:\n\n✅ Regular laundry service available\n✅ Clothes are washed, ironed, and returned on schedule\n✅ Separate arrangements for juniors and seniors"
+            },
+            'study': {
+                keywords: ['study', 'prep', 'homework', 'assignment', 'padhai karna'],
+                answer: "📚 Study & Prep Time:\n\n✅ Evening study/prep attendance is mandatory\n✅ Supervised study hours with wardens\n✅ Quiet environment for focused learning\n✅ Academic support available during prep time"
+            },
+            'uniform': {
+                keywords: ['uniform', 'dress', 'clothes', 'poshak', 'kapde'],
+                answer: "👔 Uniform & Dress Code:\n\nUniform details are provided in the joining kit at the time of admission. For specific queries, please contact:\n📧 info@vantagehall.org\n📞 0135-2776225"
+            },
+            'transport': {
+                keywords: ['transport', 'bus', 'pickup', 'drop', 'travel', 'yatayat'],
+                answer: "🚌 Transportation:\n\nFor transportation details and pickup/drop arrangements, please contact:\n📧 info@vantagehall.org\n📞 0135-2776225"
+            }
+        };
+
+        // Toggle chat
+        chatToggle.addEventListener('click', () => {
+            chatContainer.classList.toggle('active');
+            chatToggle.classList.toggle('active');
+            
+            if (chatContainer.classList.contains('active')) {
+                chatIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
+                userInput.focus();
+            } else {
+                chatIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        });
+
+        // Send message
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            addMessage(message, 'user');
+            userInput.value = '';
+
+            typingIndicator.style.display = 'block';
+            scrollToBottom();
+
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+                const response = getResponse(message);
+                addMessage(response, 'bot');
+            }, 1000 + Math.random() * 1000);
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Quick replies
+        quickReplies.addEventListener('click', (e) => {
+            if (e.target.classList.contains('quick-reply-btn')) {
+                const reply = e.target.getAttribute('data-reply');
+                userInput.value = reply;
+                sendMessage();
+            }
+        });
+
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = text;
+            
+            messageDiv.appendChild(contentDiv);
+            chatMessages.insertBefore(messageDiv, typingIndicator.parentElement);
+            scrollToBottom();
+        }
+
+        // Get bot response
+        function getResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Greetings
+            if (/^(hi|hello|hey|greetings|good morning|good afternoon|good evening|namaste)/.test(lowerMessage)) {
+                return "Hello! 😊 How can I help you with information about Vantage Hall today?";
+            }
+
+            // Thanks
+            if (/thank|thanks|appreciate|shukriya|dhanyavaad/.test(lowerMessage)) {
+                return "You're welcome! If you have any more questions, feel free to ask. We're here to help! 😊";
+            }
+
+            // Check knowledge base
+            for (let category in responses) {
+                const data = responses[category];
+                if (data.keywords.some(keyword => lowerMessage.includes(keyword))) {
+                    return data.answer;
+                }
+            }
+
+            // Default response
+            return "I'd be happy to help! You can ask me about:\n\n• Admissions & Fee Structure\n• Hostel & Boarding Facilities\n• Curriculum & Academics\n• Sports & Clubs\n• Events & Trips\n• Parent Communication\n• Counseling & Support\n• Contact Information\n\nOr contact us directly:\n📞 0135-2776225\n📧 info@vantagehall.org";
+        }
+
+        // Scroll to bottom
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>
