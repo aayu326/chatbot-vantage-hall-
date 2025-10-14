@@ -202,7 +202,7 @@
             background: rgba(255, 255, 255, 0.2);
             border: none;
             cursor: pointer;
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
@@ -502,6 +502,14 @@
         }
 
         @media (max-width: 480px) {
+            .chat-container {
+                bottom: 90px;
+                right: 10px;
+                left: 10px;
+                height: 550px;
+                max-height: calc(100vh - 110px);
+            }
+
             .chat-toggle {
                 width: 52px;
                 height: 52px;
@@ -524,7 +532,7 @@
             }
 
             .chat-header {
-                padding: 12px 14px;
+                padding: 12px 50px 12px 14px;
             }
 
             .chat-header-avatar {
@@ -556,6 +564,17 @@
             }
 
             .chat-input button svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .chat-close-btn {
+                width: 28px;
+                height: 28px;
+                right: 12px;
+            }
+
+            .chat-close-btn svg {
                 width: 16px;
                 height: 16px;
             }
@@ -612,6 +631,11 @@
                 <h3>Vantage Hall Assistant</h3>
                 <p>Online • Always here to help</p>
             </div>
+            <button class="chat-close-btn" id="chatCloseBtn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
         </div>
 
         <div class="chat-messages" id="chatMessages">
@@ -664,7 +688,7 @@
                 answer: "📍 Vantage Hall Girls' Residential School\nThe Yellow Brick Road, Doonga\nDehradun - 248007, Uttarakhand\n\n📞 General Queries: 0135-2776225, 226, 227, 228\n📧 info@vantagehall.org\n\n👤 Admissions:\n📞 +91-8191912999, +91-7078311863\n📧 admissions@vantagehall.org"
             },
             'vision': {
-                keywords: ['vision', 'mission', 'goal', 'objective', 'purpose',  'school', 'lakshya'],
+                keywords: ['vision', 'mission', 'goal', 'objective', 'purpose', 'school', 'lakshya'],
                 answer: "🎯 Our Vision & Mission:\n\nTo nurture happy, independent, and unique individuals in a safe and supportive environment."
             },
             'curriculum': {
