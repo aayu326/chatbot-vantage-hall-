@@ -6,6 +6,7 @@
     <title>Vantage Hall Chatbot</title>
 
     <style>
+        /* AAPKA EXACT SAME CSS - NO CHANGES */
         * {
             margin: 0;
             padding: 0;
@@ -680,12 +681,132 @@
         const sendBtn = document.getElementById('sendBtn');
         const quickReplies = document.getElementById('quickReplies');
         const typingIndicator = document.getElementById('typingIndicator');
-  // COMPREHENSIVE KNOWLEDGE BASE
+  
+        // COMPREHENSIVE KNOWLEDGE BASE (AAPKA SAARA DATA + MEDIA SUPPORT)
         const responses = {
 
+// ====== MEDIA SUPPORT WALE RESPONSES (NEW) ======
+'campus_photos': {
+    keywords: ["campus photo", "infrastructure", "grounds", "school building", "campus tour"],
+    answer: "Take a look at our beautiful Vantage Hall campus!",
+    media: [
+        "https://vantagehall.org/images/campus1.jpg",
+        "https://vantagehall.org/images/campus2.jpg",
+        "https://vantagehall.org/images/classroom.jpg"
+    ],
+    quick_replies: ["Campus Tour 🎥", "Facilities 🏫"]
+},
+'tour_video': {
+    keywords: ["tour video", "school life video", "welcome video", "virtual tour"],
+    answer: "Watch our virtual campus tour:",
+    media: ["https://www.youtube.com/embed/exampleID"],
+    mediaType: "video",
+    quick_replies: ["Campus Photos 🖼", "Facilities 🏫"]
+},
+'menu': {
+    keywords: ["food menu", "nutrition plan", "meal plan"],
+    answer: "Download the detailed daily menu and nutrition plan here:",
+    media: ["https://vantagehall.org/docs/food-menu.pdf"],
+    mediaType: "pdf",
+    quick_replies: ["Food & Dining 🍽", "Special Diets 🍴"]
+},
+'admission_brochure': {
+    keywords: ["admission brochure", "brochure", "prospectus download"],
+    answer: "Check our Admission Brochure for detailed info on eligibility, fees, and process:",
+    media: ["https://vantagehall.org/docs/Admission_Brochure.pdf"],
+    mediaType: "pdf",
+    quick_replies: ["Admissions 📝", "Fee Structure 💰"]
+},
+'hostel_photos': {
+    keywords: ["hostel photo", "hostel image", "dormitory photo", "boarding photo"],
+    answer: "Here are some glimpses of our comfortable and safe hostel facilities:",
+    media: [
+        "https://vantagehall.org/images/hostel1.jpg",
+        "https://vantagehall.org/images/hostel2.jpg",
+        "https://vantagehall.org/images/hostel_room.jpg"
+    ],
+    quick_replies: ["Hostel Rules 📋", "Dining & Nutrition 🍽"]
+},
+'sports_photos': {
+    keywords: ["sports photo", "games photo", "athletics image", "sports ground"],
+    answer: "Vantage Hall offers world-class sports facilities and coaching for various activities:",
+    media: [
+        "https://vantagehall.org/images/sports1.jpg",
+        "https://vantagehall.org/images/sports2.jpg"
+    ],
+    quick_replies: ["Sports Teams ⚽", "Extracurricular 🎨"]
+},
+'library': {
+    keywords: ["library photo", "books", "reading room", "study hall"],
+    answer: "Our campus includes a well-stocked library and quiet study spaces for students:",
+    media: [
+        "https://vantagehall.org/images/library1.jpg",
+        "https://vantagehall.org/images/library2.jpg"
+    ],
+    quick_replies: ["Academics 📚", "Curriculum 🏫"]
+},
+'computer_lab': {
+    keywords: ["computer lab photo", "IT lab", "smart classroom", "technology room"],
+    answer: "We provide modern computer labs and smart classrooms with digital learning tools.",
+    media: [
+        "https://vantagehall.org/wp-content/uploads/2024/11/DSC00800-1024x683.jpg",
+        "https://vantagehall.org/wp-content/uploads/2024/11/DSC00555-1024x683.jpg"
+    ],
+    quick_replies: ["Digital Learning 💻", "Projects & Robotics 🤖"]
+},
+'medical_photos': {
+    keywords: ["medical photo", "infirmary photo", "healthcare facility"],
+    answer: "Our on-campus infirmary ensures full-time healthcare with a qualified nurse and doctor.",
+    media: ["https://th.bing.com/th/id/OIP.CB8XhWcFb86bxe8xlil_hgHaFF?w=254&h=180&c=7&r=0&o=7&cb=12&dpr=1.4&pid=1.7&rm=3"],
+    quick_replies: ["Medical Facilities 🏥", "Safety & Security 🔒"]
+},
+'events_photos': {
+    keywords: ["event photo", "cultural photo", "annual day photo", "celebration photo"],
+    answer: "We organize a variety of events, cultural programs, and educational trips throughout the year.",
+    media: [
+        "https://vantagehall.org/wp-content/uploads/2024/12/IMG_1825-scaled.jpeg",
+        "https://vantagehall.org/wp-content/uploads/2024/12/IMG_1159-1-scaled.jpeg",
+        "https://vantagehall.org/wp-content/uploads/2024/12/IMG_3043-1-scaled.jpeg"
+    ],
+    quick_replies: ["Annual Events 🎉", "Educational Trips 🚌"]
+},
+'alumni': {
+    keywords: ["alumni", "success stories", "ex-student", "alumni network"],
+    answer: "Our alumni have achieved excellence in academics, sports, and global careers. Here are some highlights:",
+    media: [
+        "https://th.bing.com/th/id/OIP.tFDGQZlwrzb63i4LcygapAHaE7?w=230&h=180&c=7&r=0&o=7&cb=12&dpr=1.4&pid=1.7&rm=3",
+        "data:image/webp;base64,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"
+    ],
+    quick_replies: ["Alumni Network 👩‍🎓", "Achievements 🏆"]
+},
+'scholarship': {
+    keywords: ["scholarship", "financial aid", "merit award"],
+    answer: "Vantage Hall provides scholarships and financial assistance to meritorious students. Contact admissions for eligibility details.",
+    quick_replies: ["Admissions 📝", "Eligibility Criteria ✔"]
+},
+'erp_portal': {
+    keywords: ["ERP portal", "parent dashboard", "student portal"],
+    answer: "Parents can track student attendance, performance, and fees via the Edunext ERP system.",
+    media: ["https://resources.edunexttechnologies.com/ppt/Vantage-Hall-Girls'-Residential-School-Dehradun.pdf"],
+    quick_replies: ["Parent Portal 👨‍👩‍👧", "Updates & Notifications 📲"]
+},
+'sustainability': {
+    keywords: ["sustainability", "green campus", "eco-friendly", "environment"],
+    answer: "Vantage Hall is committed to sustainability with rainwater harvesting, solar panels, and eco-friendly initiatives.",
+    media: ["https://vantagehall.org/images/green_campus.jpg"],
+    quick_replies: ["Campus Initiatives 🌱", "Facilities 🏫"]
+},
+'career_guidance_photo': {
+    keywords: ["career counseling photo", "guidance session"],
+    answer: "We provide career counseling, mentorship sessions, and guidance for competitive exams.",
+    media: ["https://vantagehall.org/images/career_counseling.jpg"],
+    quick_replies: ["Counseling & Support 🧑‍🏫", "Academic Guidance 📚"]
+},
+
+// ====== AAPKE ORIGINAL RESPONSES (SAME) ======
 'founder': {
     keywords: ['founder', 'established', 'history', 'who started', 'foundation', 'when founded'],
-    answer: "🏫 Vantage Hall Girls’ Residential School was established in 2013 with a vision to provide a world-class boarding education for girls in a nurturing and empowering environment."
+    answer: "🏫 Vantage Hall Girls' Residential School was established in 2013 with a vision to provide a world-class boarding education for girls in a nurturing and empowering environment."
 },
 'affiliation': {
     keywords: ['affiliation', 'cbse code', 'board affiliation', 'school code'],
@@ -709,7 +830,8 @@
 },
 'medical': {
     keywords: ['medical', 'doctor', 'infirmary', 'nurse', 'hospital', 'health care'],
-    answer: "🏥 Health & Medical Care:\n• On-campus infirmary with trained nurse\n• Daily doctor visits\n• Emergency tie-ups with Max, Synergy, and Graphic Era Hospitals\n• 24x7 first-aid support."
+    answer: "🏥 Health & Medical Care:\n• On-campus infirmary with trained nurse\n• Daily doctor visits\n• Emergency tie-ups with Max, Synergy, and Graphic Era Hospitals\n•// 24x7 first-aid support."
+    
 },
 'campus': {
     keywords: ['campus', 'infrastructure', 'facilities', 'library', 'labs', 'auditorium'],
@@ -737,175 +859,156 @@
 },
 'ranking': {
     keywords: ['ranking', 'awards', 'recognition', 'top school', 'outlook', 'education world'],
-    answer: "🏆 Achievements & Recognition:\nRanked among India’s Top Girls’ Boarding Schools by Outlook India & Education World.\n🏅 Awarded for academic excellence & holistic education."
+    answer: "🏆 Achievements & Recognition:\nRanked among India's Top Girls' Boarding Schools by Outlook India & Education World.\n🏅 Awarded for academic excellence & holistic education."
 },
 'motto': {
     keywords: ['motto', 'quote', 'vision statement', 'fun fact', 'mascot', 'symbol'],
-    answer: "✨ Motto & Spirit:\n“Empower – Enlighten – Excel.”\nMascot: 'Vanta' represents courage, creativity & compassion — values every student carries with pride."
+    answer: "✨ Motto & Spirit:\n\"Empower – Enlighten – Excel.\"\nMascot: 'Vanta' represents courage, creativity & compassion — values every student carries with pride."
 },
-    'contact': {
-                keywords: ['contact', 'phone', 'email', 'address', 'location', 'reach', 'call', 'visit', 'where', 'number', 'kaha', 'kahan', 'sampark'],
-                answer: "📍 Vantage Hall Girls' Residential School\nThe Yellow Brick Road, Doonga\nDehradun - 248007, Uttarakhand\n\n📞 General Queries: 0135-2776225, 226, 227, 228\n📧 info@vantagehall.org\n\n👤 Admissions:\n📞 +91-8191912999, +91-7078311863\n📧 admissions@vantagehall.org"
-            },
-            'vision': {
-                keywords: ['vision', 'mission', 'goal', 'objective', 'purpose', 'about', 'school', 'lakshya'],
-                answer: "🎯 Our Vision & Mission:\n\nTo nurture happy, independent, and unique individuals in a safe and supportive environment."
-            },
-            'curriculum': {
-                keywords: ['curriculum', 'board', 'cbse', 'syllabus', 'academics', 'subject', 'padhate', 'teach', 'study', 'padhai'],
-                answer: "📚 We follow the CBSE curriculum\n\n🎓 Streams Offered (Classes 11-12):\n• Science\n• Commerce\n• Humanities\n\nOur curriculum emphasizes holistic development beyond textbooks, preparing students for a global future."
-            },
-            'timings': {
-                keywords: ['timing', 'time', 'hour', 'schedule', 'start', 'kab', 'samay', 'kitne baje'],
-                answer: "🕐 School Timings:\n\n• Grades 3-9: 7:45 AM - 12:55 PM\n• Grades 10-12: 7:45 AM - 1:35 PM\n• Activity Classes: 2:45 PM - 4:05 PM"
-            },
-            'ratio': {
-                keywords: ['ratio', 'student', 'teacher', 'class size', 'kitne', 'students per'],
-                answer: "👩‍🏫 Student-Teacher Ratio: 1:5\n\nWe maintain small class sizes to ensure personalized attention and effective learning for every student."
-            },
-            'achievements': {
-                keywords: ['achievement', 'award', 'recognition', 'highlight', 'best', 'excellence', 'ranking'],
-                answer: "🏆 Key Highlights:\n\n✨ Academic Excellence\n✨ Holistic Development\n✨ Sports Achievements\n✨ Modern Infrastructure & Facilities\n✨ Dedicated Pastoral Care & Well-being\n✨ International Exposure\n\nRecognized by Outlook India & Education World Magazine!"
-            },
-            'eligibility': {
-                keywords: ['eligibility', 'eligible', 'criteria', 'qualify', 'who can', 'age', 'yogyata'],
-                answer: "📝 Eligibility Criteria:\n\n✅ Classes: 3-12\n✅ Age: As per CBSE guidelines\n✅ Eligibility: Successful completion of the previous grade from a recognized school\n✅ Required: Transfer Certificate and Report Card with consistent academic performance\n\n⚠️ Note: Admission to Class 10 is considered only in exceptional cases (as it is a board year)"
-            },
-            'admission': {
-                keywords: ['admission', 'admit', 'enroll', 'join', 'apply', 'process', 'pravesh', 'dakhila'],
-                answer: "📝 Admission Process:\n\n✅ Step 1: Written Test (English, Mathematics, and Science)\n✅ Step 2: Interaction with the Principal\n✅ Step 3: Interaction with the Director\n\n📅 Registrations: September-October\n📅 Session Starts: April\n\n📞 Contact for Admissions:\n+91-8191912999, +91-7078311863\n📧 admissions@vantagehall.org"
-            },
-            'documents': {
-                keywords: ['document', 'paper', 'certificate', 'required', 'need', 'bring', 'kaagaz', 'praman patra'],
-                answer: "📄 Required Documents:\n\n• Student's Birth Certificate & Aadhaar Card\n• Parents' Aadhaar Cards\n• Parents' PAN Cards\n• Mark sheet of the last examination\n• Original Transfer Certificate\n• Medical Fitness Certificate\n• Student's PEN Number / APAAR ID"
-            },
-            'fee': {
-                keywords: ['fee', 'fees', 'cost', 'tuition', 'charge', 'payment', 'price', 'expensive', 'kitna', 'shulk', 'kharcha'],
-                answer: "💰 Fee Structure:\n\n📌 Classes 3-7:\nAnnual: ₹5,50,000\nOne-time: ₹1,85,000\nTotal: ₹7,35,000\n\n📌 Classes 8-10:\nAnnual: ₹6,50,000\nOne-time: ₹1,85,000\nTotal: ₹8,35,000\n\n📌 Classes 11-12:\nAnnual: ₹7,00,000\nOne-time: ₹1,85,000\nTotal: ₹8,85,000\n\n*One-time fees include registration, joining kit, imprest deposit & admission fee"
-            },
-            'streams': {
-                keywords: ['stream', 'science', 'commerce', 'humanities', 'arts', 'विषय'],
-                answer: "🎓 Streams Offered (Classes 11-12):\n\n• Science\n• Commerce\n• Humanities\n\nStudents can choose based on their interests and career goals!"
-            },
-            'exams': {
-                keywords: ['exam', 'test', 'assessment', 'evaluation', 'mark', 'pariksha', 'paper'],
-                answer: "📝 Examination System:\n\n• Unit Tests: Twice a year\n• Mid-Term / Half-Yearly Exams\n• Final / Annual Exams (comprehensive)\n\n✅ Remedial and academic support classes are provided beyond regular hours."
-            },
-            'remedial': {
-                keywords: ['remedial', 'extra class', 'coaching', 'support', 'help', 'tuition', 'madad'],
-                answer: "✅ Yes! Remedial and academic support classes are provided beyond regular teaching hours to help students who need extra attention."
-            },
-            'hostel': {
-                keywords: ['hostel', 'boarding', 'residential', 'accommodation', 'room', 'stay', 'live', 'rehna'],
-                answer: "🏡 Hostel Facilities:\n\n✨ Well-furnished dormitories with beds, storage, study tables & wardrobes\n✨ Separate hostels for juniors & seniors\n✨ Regular laundry service\n✨ Daily housekeeping\n✨ 24/7 supervision by wardens\n✨ Controlled Wi-Fi access\n✨ Safe & supportive environment"
-            },
-            'hostel_rules': {
-                keywords: ['hostel rule', 'discipline', 'regulation', 'guideline', 'niyam'],
-                answer: "📋 Hostel Guidelines:\n\n• Fixed return & bedtime schedules\n• Morning roll call mandatory\n• Evening study/prep attendance required\n• Respectful behavior expected\n• Polite language & proper conduct enforced\n\nWe maintain a structured yet caring environment for all students."
-            },
-            'food': {
-                keywords: ['food', 'dining', 'menu', 'meal', 'lunch', 'dinner', 'breakfast', 'diet', 'khana', 'bhojan'],
-                answer: "🍽️ Dining & Nutrition:\n\n✅ Nutritionist-planned meals\n✅ Special diets for athletes & medical needs\n✅ Veg & non-veg options\n✅ Menu rotates every 15 days\n\n🥗 Daily Meals:\n• Breakfast: Fruits, cereals, milk, eggs, bread/parathas\n• Mid-Morning: Fruits & snacks\n• Lunch: Dal, rice/roti, vegetables, salad\n• Evening: Sandwich, fruit, or soup\n• Dinner: Similar to lunch with variety\n• Night Milk: Mandatory\n\nView sample menu: vantagehall.org/food-nutrition/"
-            },
-            'leave': {
-                keywords: ['leave', 'outing', 'out', 'weekend', 'holiday', 'vacation', 'chutti', 'bahar'],
-                answer: "📅 Leave & Outing Policy:\n\nLeave and outing schedules are mentioned in the Academic Calendar provided at the start of each session."
-            },
-            'medical': {
-                keywords: ['medical', 'doctor', 'infirmary', 'health', 'sick', 'emergency', 'hospital', 'bimar', 'dawakhana'],
-                answer: "🏥 Medical Care:\n\n✅ On-campus infirmary with qualified nurse/doctor\n✅ Daily doctor visits\n✅ 24/7 first-aid available\n✅ Emergency tie-ups with:\n   • Max Hospital\n   • Synergy Hospital\n   • Graphic Era Hospital\n✅ Comprehensive health records maintained"
-            },
-            'safety': {
-                keywords: ['safety', 'security', 'cctv', 'safe', 'protection', 'guard', 'suraksha'],
-                answer: "🔒 Safety & Security:\n\n✅ 24/7 wardens & security staff\n✅ CCTV in common areas (corridors, dining, entrances, playgrounds)\n✅ Strict access control\n✅ Visitor entry with ID verification only\n✅ Entry/exit logs maintained\n✅ No cameras in hostel rooms (privacy protected)"
-            },
-            'sports': {
-                keywords: ['sport', 'game', 'athletic', 'physical', 'football', 'cricket', 'basketball', 'khel'],
-                answer: "⚽ Sports & Athletics:\n\nWe offer training under qualified coaches in:\n\n🏃‍♀️ Football, Cricket, Basketball, Volleyball\n🎾 Squash, Badminton, Lawn Tennis, Table Tennis\n⛸️ Skating, Gymnasium, Swimming\n♟️ Indoor Games: Carrom, Chess\n\nPhysical education is integral to our holistic approach!"
-            },
-            'clubs': {
-                keywords: ['club', 'activity', 'extracurricular', 'societie', 'hobby'],
-                answer: "🎨 Clubs & Societies:\n\n• Art Club\n• Culinary Club\n• Dance & Music Club\n• Theatre Club\n• Finance & Maths Club\n• IT Club\n• Science Club\n• Photography Club\n• Sustainability Club\n• Editorial Board\n• Arts & Design Club\n\nStudents can explore their passions beyond academics!"
-            },
-            'events': {
-                keywords: ['event', 'annual', 'cultural', 'celebration', 'function', 'program', 'karyakram'],
-                answer: "🎭 Events & Celebrations:\n\n🎉 Annual Day\n🏆 Sports Day\n🇮🇳 Independence & Republic Day\n🎓 Educational Trips & Excursions\n🪔 Festive Celebrations\n🏅 Inter-House Competitions\n⭐ Talent & Leadership Programs"
-            },
-            'leadership': {
-                keywords: ['leadership', 'prefect', 'council', 'house', 'captain', 'neta', 'netritva'],
-                answer: "👑 Leadership Opportunities:\n\nYes! Students can take leadership roles through:\n\n✨ House System\n✨ Prefectship\n✨ Student Council\n\nThese roles help build confidence, communication skills, and responsibility."
-            },
-            'trips': {
-                keywords: ['trip', 'excursion', 'tour', 'travel', 'outing', 'field', 'ghoomna', 'yatra'],
-                answer: "🚌 Trips & Excursions:\n\n📍 Term-End Trips:\nKanatal, Manali, Shimla, Mumbai, Goa, Jim Corbett (grade-wise)\n\n📍 Educational Trips:\nScience Centre, Dehradun Zoo, FRI, IMA, Monastery, Banks, Museums, Govt. Schools\n\n📍 Treks/Day Trips:\nBhadraj Temple, Than Gaon, Doonga treks, Mussoorie\n\n📍 Local Visits:\nPacific Mall, Mall of Dehradun, Centrio Mall"
-            },
-            'parent_communication': {
-                keywords: ['parent', 'update', 'communication', 'tracking', 'portal', 'app', 'matapita', 'jaankari'],
-                answer: "📱 Parent Communication:\n\n✅ ERP system (attendance, academics, calendar, photos/videos)\n✅ Email & WhatsApp updates\n✅ Weekly parent-student calls (Sundays, 45 mins)\n✅ Special calls on birthdays/anniversaries\n✅ PTMs: 4 times a year (online & offline)\n\nParents can track everything via the ERP portal!"
-            },
-            'ptm': {
-                keywords: ['ptm', 'parent teacher', 'meeting', 'conference', 'baithak'],
-                answer: "👨‍👩‍👧 Parent-Teacher Meetings:\n\n✅ Conducted 4 times in an academic year\n✅ Available both Online & Offline\n✅ Parents can discuss student progress directly with teachers"
-            },
-            'erp': {
-                keywords: ['erp', 'portal', 'online', 'tracking', 'system', 'app'],
-                answer: "💻 ERP System:\n\nYes! We use the Edunext ERP system.\n\nParents can access:\n✅ Attendance\n✅ Academic performance\n✅ Event calendar\n✅ Photos & videos\n✅ Fee payments\n\nAccessible anytime from anywhere!"
-            },
-            'visiting': {
-                keywords: ['visit', 'parent visit', 'meet', 'milna', 'mulakat'],
-                answer: "👨‍👩‍👧 Visiting Policy:\n\nParents may visit hostels at the time of admission.\n\nDuring the year, visits require prior permission to ensure student safety and routine discipline."
-            },
-            'counseling': {
-                keywords: ['counseling', 'counselor', 'psychologist', 'mental', 'stress', 'support', 'paramarsh'],
-                answer: "🧠 Counseling & Support:\n\n✅ Dedicated school counselor available\n✅ Psychological & emotional support\n✅ Confidential one-on-one sessions\n\n🛡️ Zero-tolerance policy against bullying\nStudents can confidentially approach Director, Principal, or Pastoral Care team."
-            },
-            'career': {
-                keywords: ['career', 'guidance', 'college', 'university', 'neet', 'jee', 'clat', 'sat', 'course'],
-                answer: "🎯 Career Guidance:\n\nWe offer career counseling for Grades 8-12, including preparation for:\n\n✅ Medical (NEET)\n✅ Engineering (JEE)\n✅ Law (CLAT, AILET)\n✅ Management (IPM, NMIMS, Symbiosis, Christ)\n✅ Humanities (Ashoka, OP Jindal, Symbiosis, Christ)\n✅ Design (NIFT, UCEED)\n✅ SAT & AP (foreign universities)\n\n1-on-1 guidance sessions and workshops available!"
-            },
-            'bullying': {
-                keywords: ['bully', 'harassment', 'report', 'problem', 'issue', 'complaint', 'pareshan'],
-                answer: "🛡️ Anti-Bullying Policy:\n\n✅ Zero-tolerance policy against bullying or harassment\n✅ Students may directly approach:\n   • Director\n   • Principal\n   • Pastoral Care team\n✅ Confidential one-on-one sessions available\n\nYour safety and well-being is our priority!"
-            },
-            'staff': {
-                keywords: ['staff', 'principal', 'director', 'teacher', 'run', 'administration', 'adhikari', 'shikshak'],
-                answer: "👥 Key Staff Members:\n\n• Principal\n• Director\n• HOD Pastoral Care\n• House Mothers\n• Medical Staff\n• Qualified Teachers & Coaches\n\nOur team is dedicated to nurturing every student's potential!"
-            },
-
-
-            
-            'emergency': {
-                keywords: ['emergency', 'urgent', 'announce', 'notification', 'aapatkaal'],
-                answer: "🚨 Emergency Communication:\n\n✅ Formal updates via Email and ERP\n✅ Urgent matters (e.g., medical emergencies) - Parents are informed via direct phone calls\n\nWe ensure timely communication for all important matters."
-            },
-            'girls_school': {
-                keywords: ['girl', 'female', 'ladki', 'balika', 'only', 'why girls'],
-                answer: "👭 Why All-Girls School?\n\nVantage Hall is proud to be an all-girls institution because:\n\n✨ Creates future female leaders\n✨ Equal opportunities without gender bias\n✨ Celebrates female strength & achievement\n✨ Supportive environment for free expression\n✨ Builds confidence & self-reliance\n\nOur girls-only environment allows students to explore their full potential!"
-            },
-            'privacy': {
-                keywords: ['privacy', 'confidential', 'data', 'information', 'gopi'],
-                answer: "🔒 Privacy Policy:\n\nThe chatbot strictly follows privacy guidelines and will never share personal or confidential student information.\n\nFor specific student-related queries, please contact the school directly."
-            },
-            'wifi': {
-                keywords: ['wifi', 'internet', 'network', 'online', 'web'],
-                answer: "📶 Wi-Fi Access:\n\n✅ Controlled Wi-Fi access in hostels\n✅ Restricted to study hours\n✅ Monitored for student safety\n✅ Available in common areas and study halls"
-            },
-            'laundry': {
-                keywords: ['laundry', 'clothes', 'wash', 'kapde', 'dhona'],
-                answer: "🧺 Laundry Service:\n\n✅ Regular laundry service available\n✅ Clothes are washed, ironed, and returned on schedule\n✅ Separate arrangements for juniors and seniors"
-            },
-            'study': {
-                keywords: ['study', 'prep', 'homework', 'assignment', 'padhai karna'],
-                answer: "📚 Study & Prep Time:\n\n✅ Evening study/prep attendance is mandatory\n✅ Supervised study hours with wardens\n✅ Quiet environment for focused learning\n✅ Academic support available during prep time"
-            },
-            'uniform': {
-                keywords: ['uniform', 'dress', 'clothes', 'poshak', 'kapde'],
-                answer: "👔 Uniform & Dress Code:\n\nUniform details are provided in the joining kit at the time of admission. For specific queries, please contact:\n📧 info@vantagehall.org\n📞 0135-2776225"
-            },
-            'transport': {
-                keywords: ['transport', 'bus', 'pickup', 'drop', 'travel', 'yatayat'],
-                answer: "🚌 Transportation:\n\nFor transportation details and pickup/drop arrangements, please contact:\n📧 info@vantagehall.org\n📞 0135-2776225"
-            }
+'contact': {
+    keywords: ['contact', 'phone', 'email', 'address', 'location', 'reach', 'call', 'visit', 'where', 'number', 'kaha', 'kahan', 'sampark'],
+    answer: "📍 Vantage Hall Girls' Residential School\nThe Yellow Brick Road, Doonga\nDehradun - 248007, Uttarakhand\n\n📞 General Queries: 0135-2776225, 226, 227, 228\n📧 info@vantagehall.org\n\n👤 Admissions:\n📞 +91-8191912999, +91-7078311863\n📧 admissions@vantagehall.org"
+},
+'vision': {
+    keywords: ['vision', 'mission', 'goal', 'objective', 'purpose',  'school', 'lakshya'],
+    answer: "🎯 Our Vision & Mission:\n\nTo nurture happy, independent, and unique individuals in a safe and supportive environment."
+},
+'curriculum': {
+    keywords: ['curriculum', 'board', 'cbse', 'syllabus', 'academics', 'subject', 'padhate', 'teach', 'study', 'padhai'],
+    answer: "📚 We follow the CBSE curriculum\n\n🎓 Streams Offered (Classes 11-12):\n• Science\n• Commerce\n• Humanities\n\nOur curriculum emphasizes holistic development beyond textbooks, preparing students for a global future."
+},
+'timings': {
+    keywords: ['timing', 'time', 'hour', 'schedule', 'start', 'kab', 'samay', 'kitne baje'],
+    answer: "🕐 School Timings:\n\n• Grades 3-9: 7:45 AM - 12:55 PM\n• Grades 10-12: 7:45 AM - 1:35 PM\n• Activity Classes: 2:45 PM - 4:05 PM"
+},
+'ratio': {
+    keywords: ['ratio', 'student', 'teacher', 'class size', 'kitne', 'students per'],
+    answer: "👩‍🏫 Student-Teacher Ratio: 1:5\n\nWe maintain small class sizes to ensure personalized attention and effective learning for every student."
+},
+'achievements': {
+    keywords: ['achievement', 'award', 'recognition', 'highlight', 'best', 'excellence', 'ranking'],
+    answer: "🏆 Key Highlights:\n\n✨ Academic Excellence\n✨ Holistic Development\n✨ Sports Achievements\n✨ Modern Infrastructure & Facilities\n✨ Dedicated Pastoral Care & Well-being\n✨ International Exposure\n\nRecognized by Outlook India & Education World Magazine!"
+},
+'eligibility': {
+    keywords: ['eligibility', 'eligible', 'criteria', 'qualify', 'who can', 'age', 'yogyata'],
+    answer: "📝 Eligibility Criteria:\n\n✅ Classes: 3-12\n✅ Age: As per CBSE guidelines\n✅ Eligibility: Successful completion of the previous grade from a recognized school\n✅ Required: Transfer Certificate and Report Card with consistent academic performance\n\n⚠️ Note: Admission to Class 10 is considered only in exceptional cases (as it is a board year)"
+},
+'admission': {
+    keywords: ['admission', 'admit', 'enroll', 'join', 'apply', 'process', 'pravesh', 'dakhila'],
+    answer: "📝 Admission Process:\n\n✅ Step 1: Written Test (English, Mathematics, and Science)\n✅ Step 2: Interaction with the Principal\n✅ Step 3: Interaction with the Director\n\n📅 Registrations: September-October\n📅 Session Starts: April\n\n📞 Contact for Admissions:\n+91-8191912999, +91-7078311863\n📧 admissions@vantagehall.org"
+},
+'documents': {
+    keywords: ['document', 'paper', 'certificate', 'required', 'need', 'bring', 'kaagaz', 'praman patra'],
+    answer: "📄 Required Documents:\n\n• Student's Birth Certificate & Aadhaar Card\n• Parents' Aadhaar Cards\n• Parents' PAN Cards\n• Mark sheet of the last examination\n• Original Transfer Certificate\n• Medical Fitness Certificate\n• Student's PEN Number / APAAR ID"
+},
+'fee': {
+    keywords: ['fee', 'fees', 'cost', 'tuition', 'charge', 'payment', 'price', 'expensive', 'kitna', 'shulk', 'kharcha'],
+    answer: "💰 Fee Structure:\n\n📌 Classes 3-7:\nAnnual: ₹5,50,000\nOne-time: ₹1,85,000\nTotal: ₹7,35,000\n\n📌 Classes 8-10:\nAnnual: ₹6,50,000\nOne-time: ₹1,85,000\nTotal: ₹8,35,000\n\n📌 Classes 11-12:\nAnnual: ₹7,00,000\nOne-time: ₹1,85,000\nTotal: ₹8,85,000\n\n*One-time fees include registration, joining kit, imprest deposit & admission fee"
+},
+'streams': {
+    keywords: ['stream', 'science', 'commerce', 'humanities', 'arts', 'विषय'],
+    answer: "🎓 Streams Offered (Classes 11-12):\n\n• Science\n• Commerce\n• Humanities\n\nStudents can choose based on their interests and career goals!"
+},
+'exams': {
+    keywords: ['exam', 'test', 'assessment', 'evaluation', 'mark', 'pariksha', 'paper'],
+    answer: "📝 Examination System:\n\n• Unit Tests: Twice a year\n• Mid-Term / Half-Yearly Exams\n• Final / Annual Exams (comprehensive)\n\n✅ Remedial and academic support classes are provided beyond regular hours."
+},
+'remedial': {
+    keywords: ['remedial', 'extra class', 'coaching', 'support', 'help', 'tuition', 'madad'],
+    answer: "✅ Yes! Remedial and academic support classes are provided beyond regular teaching hours to help students who need extra attention."
+},
+'hostel': {
+    keywords: ['hostel', 'boarding', 'residential', 'accommodation', 'room', 'stay', 'live', 'rehna'],
+    answer: "🏡 Hostel Facilities:\n\n✨ Well-furnished dormitories with beds, storage, study tables & wardrobes\n✨ Separate hostels for juniors & seniors\n✨ Regular laundry service\n✨ Daily housekeeping\n✨ 24/7 supervision by wardens\n✨ Controlled Wi-Fi access\n✨ Safe & supportive environment"
+},
+'hostel_rules': {
+    keywords: ['hostel rule', 'discipline', 'regulation', 'guideline', 'niyam'],
+    answer: "📋 Hostel Guidelines:\n\n• Fixed return & bedtime schedules\n• Morning roll call mandatory\n• Evening study/prep attendance required\n• Respectful behavior expected\n• Polite language & proper conduct enforced\n\nWe maintain a structured yet caring environment for all students."
+},
+'food': {
+    keywords: ['food', 'dining', 'menu', 'meal', 'lunch', 'dinner', 'breakfast', 'diet', 'khana', 'bhojan'],
+    answer: "🍽️ Dining & Nutrition:\n\n✅ Nutritionist-planned meals\n✅ Special diets for athletes & medical needs\n✅ Veg & non-veg options\n✅ Menu rotates every 15 days\n\n🥗 Daily Meals:\n• Breakfast: Fruits, cereals, milk, eggs, bread/parathas\n• Mid-Morning: Fruits & snacks\n• Lunch: Dal, rice/roti, vegetables, salad\n• Evening: Sandwich, fruit, or soup\n• Dinner: Similar to lunch with variety\n• Night Milk: Mandatory\n\nView sample menu: vantagehall.org/food-nutrition/"
+},
+'leave': {
+    keywords: ['leave', 'outing', 'out', 'weekend', 'holiday', 'vacation', 'chutti', 'bahar'],
+    answer: "📅 Leave & Outing Policy:\n\nLeave and outing schedules are mentioned in the Academic Calendar provided at the start of each session."
+},
+'sports': {
+    keywords: ['sport', 'game', 'athletic', 'physical', 'football', 'cricket', 'basketball', 'khel'],
+    answer: "⚽ Sports & Athletics:\n\nWe offer training under qualified coaches in:\n\n🏃‍♀️ Football, Cricket, Basketball, Volleyball\n🎾 Squash, Badminton, Lawn Tennis, Table Tennis\n⛸️ Skating, Gymnasium, Swimming\n♟️ Indoor Games: Carrom, Chess\n\nPhysical education is integral to our holistic approach!"
+},
+'clubs': {
+    keywords: ['club', 'activity', 'extracurricular', 'societie', 'hobby'],
+    answer: "🎨 Clubs & Societies:\n\n• Art Club\n• Culinary Club\n• Dance & Music Club\n• Theatre Club\n• Finance & Maths Club\n• IT Club\n• Science Club\n• Photography Club\n• Sustainability Club\n• Editorial Board\n• Arts & Design Club\n\nStudents can explore their passions beyond academics!"
+},
+'events': {
+    keywords: ['event', 'annual', 'cultural', 'celebration', 'function', 'program', 'karyakram'],
+    answer: "🎭 Events & Celebrations:\n\n🎉 Annual Day\n🏆 Sports Day\n🇮🇳 Independence & Republic Day\n🎓 Educational Trips & Excursions\n🪔 Festive Celebrations\n🏅 Inter-House Competitions\n⭐ Talent & Leadership Programs"
+},
+'leadership': {
+    keywords: ['leadership', 'prefect', 'council', 'house', 'captain', 'neta', 'netritva'],
+    answer: "👑 Leadership Opportunities:\n\nYes! Students can take leadership roles through:\n\n✨ House System\n✨ Prefectship\n✨ Student Council\n\nThese roles help build confidence, communication skills, and responsibility."
+},
+'trips': {
+    keywords: ['trip', 'excursion', 'tour', 'travel', 'outing', 'field', 'ghoomna', 'yatra'],
+    answer: "🚌 Trips & Excursions:\n\n📍 Term-End Trips:\nKanatal, Manali, Shimla, Mumbai, Goa, Jim Corbett (grade-wise)\n\n📍 Educational Trips:\nScience Centre, Dehradun Zoo, FRI, IMA, Monastery, Banks, Museums, Govt. Schools\n\n📍 Treks/Day Trips:\nBhadraj Temple, Than Gaon, Doonga treks, Mussoorie\n\n📍 Local Visits:\nPacific Mall, Mall of Dehradun, Centrio Mall"
+},
+'parent_communication': {
+    keywords: ['parent', 'update', 'communication', 'tracking', 'portal', 'app', 'matapita', 'jaankari'],
+    answer: "📱 Parent Communication:\n\n✅ ERP system (attendance, academics, calendar, photos/videos)\n✅ Email & WhatsApp updates\n✅ Weekly parent-student calls (Sundays, 45 mins)\n✅ Special calls on birthdays/anniversaries\n✅ PTMs: 4 times a year (online & offline)\n\nParents can track everything via the ERP portal!"
+},
+'ptm': {
+    keywords: ['ptm', 'parent teacher', 'meeting', 'conference', 'baithak'],
+    answer: "👨‍👩‍👧 Parent-Teacher Meetings:\n\n✅ Conducted 4 times in an academic year\n✅ Available both Online & Offline\n✅ Parents can discuss student progress directly with teachers"
+},
+'erp': {
+    keywords: ['erp', 'portal', 'online', 'tracking', 'system', 'app'],
+    answer: "💻 ERP System:\n\nYes! We use the Edunext ERP system.\n\nParents can access:\n✅ Attendance\n✅ Academic performance\n✅ Event calendar\n✅ Photos & videos\n✅ Fee payments\n\nAccessible anytime from anywhere!"
+},
+'visiting': {
+    keywords: ['visit', 'parent visit', 'meet', 'milna', 'mulakat'],
+    answer: "👨‍👩‍👧 Visiting Policy:\n\nParents may visit hostels at the time of admission.\n\nDuring the year, visits require prior permission to ensure student safety and routine discipline."
+},
+'counseling': {
+    keywords: ['counseling', 'counselor', 'psychologist', 'mental', 'stress', 'support', 'paramarsh'],
+    answer: "🧠 Counseling & Support:\n\n✅ Dedicated school counselor available\n✅ Psychological & emotional support\n✅ Confidential one-on-one sessions\n\n🛡️ Zero-tolerance policy against bullying\nStudents can confidentially approach Director, Principal, or Pastoral Care team."
+},
+'career': {
+    keywords: ['career', 'guidance', 'college', 'university', 'neet', 'jee', 'clat', 'sat', 'course'],
+    answer: "🎯 Career Guidance:\n\nWe offer career counseling for Grades 8-12, including preparation for:\n\n✅ Medical (NEET)\n✅ Engineering (JEE)\n✅ Law (CLAT, AILET)\n✅ Management (IPM, NMIMS, Symbiosis, Christ)\n✅ Humanities (Ashoka, OP Jindal, Symbiosis, Christ)\n✅ Design (NIFT, UCEED)\n✅ SAT & AP (foreign universities)\n\n1-on-1 guidance sessions and workshops available!"
+},
+'bullying': {
+    keywords: ['bully', 'harassment', 'report', 'problem', 'issue', 'complaint', 'pareshan'],
+    answer: "🛡️ Anti-Bullying Policy:\n\n✅ Zero-tolerance policy against bullying or harassment\n✅ Students may directly approach:\n   • Director\n   • Principal\n   • Pastoral Care team\n✅ Confidential one-on-one sessions available\n\nYour safety and well-being is our priority!"
+},
+'staff': {
+    keywords: ['staff', 'principal', 'director', 'teacher', 'run', 'administration', 'adhikari', 'shikshak'],
+    answer: "👥 Key Staff Members:\n\n• Principal\n• Director\n• HOD Pastoral Care\n• House Mothers\n• Medical Staff\n• Qualified Teachers & Coaches\n\nOur team is dedicated to nurturing every student's potential!"
+},
+'emergency': {
+    keywords: ['emergency', 'urgent', 'announce', 'notification', 'aapatkaal'],
+    answer: "🚨 Emergency Communication:\n\n✅ Formal updates via Email and ERP\n✅ Urgent matters (e.g., medical emergencies) - Parents are informed via direct phone calls\n\nWe ensure timely communication for all important matters."
+},
+'girls_school': {
+    keywords: ['girl', 'female', 'ladki', 'balika', 'only', 'why girls'],
+    answer: "👭 Why All-Girls School?\n\nVantage Hall is proud to be an all-girls institution because:\n\n✨ Creates future female leaders\n✨ Equal opportunities without gender bias\n✨ Celebrates female strength & achievement\n✨ Supportive environment for free expression\n✨ Builds confidence & self-reliance\n\nOur girls-only environment allows students to explore their full potential!"
+},
+'privacy': {
+    keywords: ['privacy', 'confidential', 'data', 'information', 'gopi'],
+    answer: "🔒 Privacy Policy:\n\nThe chatbot strictly follows privacy guidelines and will never share personal or confidential student information.\n\nFor specific student-related queries, please contact the school directly."
+},
+'wifi': {
+    keywords: ['wifi', 'internet', 'network', 'online', 'web'],
+    answer: "📶 Wi-Fi Access:\n\n✅ Controlled Wi-Fi access in hostels\n✅ Restricted to study hours\n✅ Monitored for student safety\n✅ Available in common areas and study halls"
+},
+'laundry': {
+    keywords: ['laundry', 'clothes', 'wash', 'kapde', 'dhona'],
+    answer: "🧺 Laundry Service:\n\n✅ Regular laundry service available\n✅ Clothes are washed, ironed, and returned on schedule\n✅ Separate arrangements for juniors and seniors"
+},
+'study': {
+    keywords: ['study', 'prep', 'homework', 'assignment', 'padhai karna'],
+    answer: "📚 Study & Prep Time:\n\n✅ Evening study/prep attendance is mandatory\n✅ Supervised study hours with wardens\n✅ Quiet environment for focused learning\n✅ Academic support available during prep time"
+}
         };
 
         // Toggle chat
@@ -935,7 +1038,13 @@
             setTimeout(() => {
                 typingIndicator.style.display = 'none';
                 const response = getResponse(message);
-                addMessage(response, 'bot');
+                addMessage(
+                    response.text || response, 
+                    'bot', 
+                    response.media || [], 
+                    response.mediaType || 'image',
+                    response.quickReplies || []
+                );
             }, 800 + Math.random() * 800);
         }
 
@@ -956,8 +1065,8 @@
             }
         });
 
-        // Add message to chat
-        function addMessage(text, sender) {
+        // ====== UPDATED: Add message to chat WITH MEDIA SUPPORT ======
+        function addMessage(text, sender, mediaUrls = [], mediaType = 'image', quickRepliesList = []) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}`;
             
@@ -966,34 +1075,111 @@
             contentDiv.textContent = text;
             
             messageDiv.appendChild(contentDiv);
+            
+            // Add media if present
+            if (mediaUrls && mediaUrls.length > 0) {
+                mediaUrls.forEach(url => {
+                    const mediaContainer = document.createElement('div');
+                    mediaContainer.style.marginTop = '10px';
+                    
+                    if (mediaType === 'video' || url.includes('youtube.com') || url.includes('youtu.be')) {
+                        // YouTube video embed
+                        const iframe = document.createElement('iframe');
+                        iframe.src = url;
+                        iframe.width = '100%';
+                        iframe.height = '200';
+                        iframe.style.borderRadius = '8px';
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('allowfullscreen', 'true');
+                        mediaContainer.appendChild(iframe);
+                    } else if (mediaType === 'pdf' || url.endsWith('.pdf')) {
+                        // PDF download link
+                        const pdfLink = document.createElement('a');
+                        pdfLink.href = url;
+                        pdfLink.target = '_blank';
+                        pdfLink.innerHTML = '📄 Download PDF';
+                        pdfLink.style.display = 'inline-block';
+                        pdfLink.style.padding = '8px 12px';
+                        pdfLink.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                        pdfLink.style.color = 'white';
+                        pdfLink.style.borderRadius = '8px';
+                        pdfLink.style.textDecoration = 'none';
+                        pdfLink.style.fontSize = '12px';
+                        pdfLink.style.fontWeight = '600';
+                        pdfLink.style.marginTop = '5px';
+                        mediaContainer.appendChild(pdfLink);
+                    } else {
+                        // Image
+                        const img = document.createElement('img');
+                        img.src = url;
+                        img.style.width = '100%';
+                        img.style.borderRadius = '8px';
+                        img.style.marginTop = '5px';
+                        img.style.cursor = 'pointer';
+                        img.onclick = () => window.open(url, '_blank');
+                        mediaContainer.appendChild(img);
+                    }
+                    
+                    messageDiv.appendChild(mediaContainer);
+                });
+            }
+            
             chatMessages.insertBefore(messageDiv, typingIndicator.parentElement);
+            
+            // Add dynamic quick replies if present
+            if (quickRepliesList && quickRepliesList.length > 0) {
+                updateQuickReplies(quickRepliesList);
+            }
+            
             scrollToBottom();
         }
+        
+        // ====== NEW: Update quick replies dynamically ======
+        function updateQuickReplies(replies) {
+            quickReplies.innerHTML = '';
+            replies.forEach(reply => {
+                const btn = document.createElement('button');
+                btn.className = 'quick-reply-btn';
+                btn.textContent = reply;
+                btn.onclick = () => {
+                    userInput.value = reply.replace(/[🎥🖼🏫📋🍽🍴📝💰⚽🎨📚🏫💻🤖🏥🔒🎉🚌👩‍🎓🏆✔📲🌱🧑‍🏫]/g, '').trim();
+                    sendMessage();
+                };
+                quickReplies.appendChild(btn);
+            });
+        }
 
-        // Get bot response
+        // ====== UPDATED: Get bot response WITH MEDIA SUPPORT ======
         function getResponse(message) {
             const lowerMessage = message.toLowerCase();
             
             // Greetings
             if (/^(hi|hello|hey|greetings|good morning|good afternoon|good evening|namaste)/.test(lowerMessage)) {
-                return "Hello! 😊 How can I help you with information about Vantage Hall today?";
+                return { text: "Hello! 😊 How can I help you with information about Vantage Hall today?" };
             }
 
             // Thanks
             if (/thank|thanks|appreciate|shukriya|dhanyavaad/.test(lowerMessage)) {
-                return "You're welcome! If you have any more questions, feel free to ask. We're here to help! 😊";
+                return { text: "You're welcome! If you have any more questions, feel free to ask. We're here to help! 😊" };
             }
 
             // Check knowledge base
             for (let category in responses) {
                 const data = responses[category];
                 if (data.keywords.some(keyword => lowerMessage.includes(keyword))) {
-                    return data.answer;
+                    return {
+                        text: data.answer,
+                        media: data.media || [],
+                        mediaType: data.mediaType || 'image',
+                        quickReplies: data.quick_replies || []
+                    };
                 }
             }
 
             // Default response
-            return "I'd be happy to help! You can ask me about:\n\n• Admissions & Fee Structure\n• Hostel & Boarding Facilities\n• Curriculum & Academics\n• Sports & Clubs\n• Events & Trips\n• Parent Communication\n• Counseling & Support\n• Contact Information\n\nOr contact us directly:\n📞 0135-2776225\n📧 info@vantagehall.org";
+            return { 
+                text: "I'd be happy to help! You can ask me about:\n\n• Admissions & Fee Structure\n• Hostel & Boarding Facilities\n• Curriculum & Academics\n• Sports & Clubs\n• Events & Trips\n• Parent Communication\n• Counseling & Support\n• Contact Information\n\nOr contact us directly:\n📞 0135-2776225\n📧 info@vantagehall.org" 
+            };
         }
 
         // Scroll to bottom
