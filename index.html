@@ -680,15 +680,75 @@
         const sendBtn = document.getElementById('sendBtn');
         const quickReplies = document.getElementById('quickReplies');
         const typingIndicator = document.getElementById('typingIndicator');
-
-        // COMPREHENSIVE KNOWLEDGE BASE
+  // COMPREHENSIVE KNOWLEDGE BASE
         const responses = {
-            'contact': {
+
+'founder': {
+    keywords: ['founder', 'established', 'history', 'who started', 'foundation', 'when founded'],
+    answer: "🏫 Vantage Hall Girls’ Residential School was established in 2013 with a vision to provide a world-class boarding education for girls in a nurturing and empowering environment."
+},
+'affiliation': {
+    keywords: ['affiliation', 'cbse code', 'board affiliation', 'school code'],
+    answer: "📘 The school is affiliated to the Central Board of Secondary Education (CBSE), New Delhi. (Affiliation Code available on the CBSE portal and school prospectus)."
+},
+'location': {
+    keywords: ['location', 'map', 'how to reach', 'directions', 'bus stop', 'address'],
+    answer: "📍 Vantage Hall is located in Doonga, Dehradun — about 10 km from the city centre. Easily accessible via Sahaspur Road & Rajpur Road.\n🗺 Google Maps: https://maps.app.goo.gl/F9okR4GADbhN9x5G8"
+},
+'faculty': {
+    keywords: ['faculty', 'teachers', 'staff', 'teaching quality', 'teacher qualification'],
+    answer: "👩‍🏫 All faculty members are highly qualified professionals with CBSE teaching certifications. Many hold postgraduate degrees and have years of teaching and mentoring experience."
+},
+'smart_class': {
+    keywords: ['smart class', 'technology', 'digital classroom', 'erp', 'computer lab', 'online learning'],
+    answer: "💻 Digital & Smart Learning:\n• Smart classrooms with interactive panels\n• Computer & Robotics Labs\n• Wi-Fi-enabled learning environment\n• Integrated Edunext ERP for attendance, grades & communication."
+},
+'safety': {
+    keywords: ['safety', 'security', 'cctv', 'warden', 'discipline', 'rules'],
+    answer: "🛡 Safety & Security:\n• 24x7 wardens in each hostel block\n• CCTV surveillance in corridors & common areas\n• Controlled visitor access with ID verification\n• Strict discipline & conduct policy."
+},
+'medical': {
+    keywords: ['medical', 'doctor', 'infirmary', 'nurse', 'hospital', 'health care'],
+    answer: "🏥 Health & Medical Care:\n• On-campus infirmary with trained nurse\n• Daily doctor visits\n• Emergency tie-ups with Max, Synergy, and Graphic Era Hospitals\n• 24x7 first-aid support."
+},
+'campus': {
+    keywords: ['campus', 'infrastructure', 'facilities', 'library', 'labs', 'auditorium'],
+    answer: "🏫 Campus Facilities:\n• 12-acre lush green campus\n• Modern academic blocks & labs\n• Fully stocked library\n• Amphitheatre & multi-purpose auditorium\n• Indoor & outdoor sports arenas."
+},
+'transport': {
+    keywords: ['transport', 'bus', 'pickup', 'airport', 'drop service'],
+    answer: "🚌 Transport & Travel:\nLimited transport services for specific local routes.\n✈ Airport & railway station pickups available during vacations or designated days."
+},
+'exchange_program': {
+    keywords: ['exchange program', 'international exposure', 'foreign universities', 'global program'],
+    answer: "🌍 Global Exposure:\nVantage Hall organizes international workshops and student exchange programs to help students experience diverse learning cultures."
+},
+'routine': {
+    keywords: ['routine', 'daily schedule', 'day in life', 'time table'],
+    answer: "🕒 Daily Boarding Routine:\n6:00 AM – Wake up & PT\n7:30 AM – Breakfast\n8:00 AM – Classes\n1:00 PM – Lunch & rest\n2:45 PM – Prep / Activities\n6:30 PM – Dinner\n8:00 PM – Study hour\n9:30 PM – Lights out."
+},
+'mobile_policy': {
+    keywords: ['phone', 'mobile', 'communication', 'gadgets', 'device policy'],
+    answer: "📵 Mobile & Communication Policy:\nStudents are not allowed to keep personal phones.\nWeekly parent–student calls are arranged via hostel landlines.\nERP and email updates keep parents informed."
+},
+'uniform': {
+    keywords: ['uniform', 'dress code', 'laundry', 'clothes', 'attire'],
+    answer: "👕 Uniform & Laundry:\n• Formal, sports & house uniforms provided\n• Laundry twice weekly\n• Proper attire required during classes, activities & dining."
+},
+'ranking': {
+    keywords: ['ranking', 'awards', 'recognition', 'top school', 'outlook', 'education world'],
+    answer: "🏆 Achievements & Recognition:\nRanked among India’s Top Girls’ Boarding Schools by Outlook India & Education World.\n🏅 Awarded for academic excellence & holistic education."
+},
+'motto': {
+    keywords: ['motto', 'quote', 'vision statement', 'fun fact', 'mascot', 'symbol'],
+    answer: "✨ Motto & Spirit:\n“Empower – Enlighten – Excel.”\nMascot: 'Vanta' represents courage, creativity & compassion — values every student carries with pride."
+},
+    'contact': {
                 keywords: ['contact', 'phone', 'email', 'address', 'location', 'reach', 'call', 'visit', 'where', 'number', 'kaha', 'kahan', 'sampark'],
                 answer: "📍 Vantage Hall Girls' Residential School\nThe Yellow Brick Road, Doonga\nDehradun - 248007, Uttarakhand\n\n📞 General Queries: 0135-2776225, 226, 227, 228\n📧 info@vantagehall.org\n\n👤 Admissions:\n📞 +91-8191912999, +91-7078311863\n📧 admissions@vantagehall.org"
             },
             'vision': {
-                keywords: ['vision', 'mission', 'goal', 'objective', 'purpose',  'school', 'lakshya'],
+                keywords: ['vision', 'mission', 'goal', 'objective', 'purpose', 'about', 'school', 'lakshya'],
                 answer: "🎯 Our Vision & Mission:\n\nTo nurture happy, independent, and unique individuals in a safe and supportive environment."
             },
             'curriculum': {
@@ -811,6 +871,9 @@
                 keywords: ['staff', 'principal', 'director', 'teacher', 'run', 'administration', 'adhikari', 'shikshak'],
                 answer: "👥 Key Staff Members:\n\n• Principal\n• Director\n• HOD Pastoral Care\n• House Mothers\n• Medical Staff\n• Qualified Teachers & Coaches\n\nOur team is dedicated to nurturing every student's potential!"
             },
+
+
+            
             'emergency': {
                 keywords: ['emergency', 'urgent', 'announce', 'notification', 'aapatkaal'],
                 answer: "🚨 Emergency Communication:\n\n✅ Formal updates via Email and ERP\n✅ Urgent matters (e.g., medical emergencies) - Parents are informed via direct phone calls\n\nWe ensure timely communication for all important matters."
