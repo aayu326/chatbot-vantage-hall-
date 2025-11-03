@@ -815,7 +815,104 @@
                 quick_replies: ["Hostel Rules 📋", "Dining & Nutrition 🍽", "Safety 🛡️"],
                 relatedTopics: ["hostel", "hostel_rules", "food", "safety"]
             },
-            'sports_photos': {
+'medical_team': {
+    keywords: ['doctor', 'nurse', 'medical staff', 'physician', 'gynaecologist', 'school doctor', 'campus doctor'],
+    answer: "👩‍⚕️ Medical Staff:\n\nOur school has a qualified in-house doctor (MBBS, DGO – Physician & Gynaecologist) supported by three trained nurses, ensuring round-the-clock healthcare for all students.",
+    quick_replies: ["24x7 Care 🏥", "Health Check-ups ✅", "Emergency 🚨"],
+    relatedTopics: ["medical_services", "health_checkup", "emergency"]
+},
+
+'hospital_tieups': {
+    keywords: ['hospital', 'emergency hospital', 'tie-up', 'synergy', 'max', 'graphic era', 'nearby hospital'],
+    answer: "🏥 Hospital Tie-ups:\n\nFor emergencies requiring specialized care, we have tie-ups with:\n• Graphic Era Hospital (nearby)\n• Synergy Hospital\n• Max Hospital\n\nThis ensures immediate and expert medical attention when needed.",
+    quick_replies: ["Emergency Care 🚨", "Transportation 🚐", "Medical Team 👩‍⚕️"],
+    relatedTopics: ["emergency", "transportation", "medical_team"]
+},
+
+'first_aid': {
+    keywords: ['first aid', 'injury', 'wound', 'fever', 'allergy', 'minor injury', 'medical treatment'],
+    answer: "🚑 First Aid Services:\n\nOur medical team provides prompt first aid, including:\n• Minor injury care\n• Wound dressing\n• Fever management\n• Allergic reaction support\n\nStudents receive immediate attention and comfort within the campus.",
+    quick_replies: ["Sports Safety ⚽", "Emergency 🚨", "24x7 Care 🕒"],
+    relatedTopics: ["sports_care", "emergency", "medical_services"]
+},
+
+'monthly_checkup': {
+    keywords: ['health checkup', 'monthly checkup', 'medical exam', 'routine health', 'vision test', 'dental hygiene'],
+    answer: "🩺 Monthly Health Check-ups:\n\nRegular health assessments include:\n• Height & Weight tracking\n• Vision tests\n• Dental hygiene\n• General physical examination\n\nThis helps monitor every student’s well-being throughout the year.",
+    quick_replies: ["Health Records 📋", "Nutrition 🍎", "Medical Team 👩‍⚕️"],
+    relatedTopics: ["medical_services", "nutrition", "records"]
+},
+
+'medical_availability': {
+    keywords: ['24x7', 'available', 'round the clock', 'night doctor', 'day doctor', 'medical help anytime'],
+    answer: "⏱️ 24x7 Medical Availability:\n\nMedical assistance, including first and primary aid, is available at all hours — ensuring your child’s safety day and night.",
+    quick_replies: ["Emergency 🚨", "Doctor 👩‍⚕️", "First Aid 🏥"],
+    relatedTopics: ["emergency", "first_aid", "medical_team"]
+},
+
+'sports_medical': {
+    keywords: ['sports', 'injury', 'sports medicine', 'playground', 'games', 'physical activity'],
+    answer: "⚽ Sports & Activity Medical Support:\n\nTrained medical staff and first aid services are always present during sports and extracurricular activities to handle any injuries or discomfort immediately.",
+    quick_replies: ["First Aid 🚑", "24x7 Care 🕒", "Hostel Safety 🏡"],
+    relatedTopics: ["first_aid", "medical_availability", "sports"]
+},
+
+'hospital_emergency': {
+    keywords: ['hospital care', 'emergency', 'hospitalization', 'urgent', 'doctor referral'],
+    answer: "🚨 Emergency Hospital Care:\n\nIn case of a medical emergency, the child is taken to a partnered hospital immediately. Parents are notified right away to ensure full transparency and timely communication.",
+    quick_replies: ["Parent Notification 📞", "Transportation 🚐", "Hospital Tie-ups 🏥"],
+    relatedTopics: ["parent_notification", "transportation", "hospital_tieups"]
+},
+
+'hospital_accompaniment': {
+    keywords: ['accompany', 'escort', 'hospital', 'security', 'medical staff'],
+    answer: "👩‍⚕️ Accompaniment During Hospital Visits:\n\nWhenever a student is taken to the hospital, a member of the Medical Staff and a Security Guard always accompany the child to ensure safety and support.",
+    quick_replies: ["Emergency 🚨", "Hospital Tie-ups 🏥", "Parent Notification 📞"],
+    relatedTopics: ["hospital_tieups", "emergency", "safety"]
+},
+
+'parent_notification': {
+    keywords: ['parents', 'notification', 'inform', 'emergency contact', 'phone call', 'sms', 'email'],
+    answer: "📞 Parent Notification:\n\nParents are notified immediately in case of any emergency through a phone call, followed by an Email or SMS update for complete clarity and peace of mind.",
+    quick_replies: ["ERP Access 📲", "Emergency 🚨", "Medical Team 👩‍⚕️"],
+    relatedTopics: ["communication", "emergency", "medical_team"]
+},
+
+'daily_visits': {
+    keywords: ['doctor visit', 'daily check', 'mandatory health check', 'medical routine'],
+    answer: "👩‍⚕️ Daily Doctor Visits:\n\nDaily visits by the school doctor are available, but not mandatory unless the child requires specific attention or treatment.",
+    quick_replies: ["Monthly Check-up ✅", "Medical Team 👩‍⚕️", "Parent Communication 📞"],
+    relatedTopics: ["medical_services", "monthly_checkup", "communication"]
+},
+
+'transportation': {
+    keywords: ['ambulance', 'transport', 'hospital vehicle', 'emergency transport', 'medical transport'],
+    answer: "🚐 Medical Transportation:\n\nThe school provides transportation via its own vehicle or an ambulance, depending on the situation and urgency of medical need.",
+    quick_replies: ["Hospital Tie-ups 🏥", "Parent Notification 📞", "Emergency 🚨"],
+    relatedTopics: ["hospital_tieups", "emergency", "parent_notification"]
+},
+
+'health_records': {
+    keywords: ['health records', 'medical report', 'checkup report', 'erp', 'email report'],
+    answer: "📋 Access to Health Records:\n\nParents can access their child’s health reports from monthly check-ups and medical visits via email or through the school’s ERP system.",
+    quick_replies: ["ERP Portal 📱", "Monthly Check-ups ✅", "Parent Communication 📞"],
+    relatedTopics: ["erp", "records", "communication"]
+},
+
+'doctor_consult': {
+    keywords: ['consult doctor', 'talk to doctor', 'meeting', 'tele-meet', 'discussion health'],
+    answer: "🩺 Doctor Consultation:\n\nParents can schedule a phone call, in-person, or tele-meeting with the school doctor or nurses to discuss any health-related concerns regarding their child.",
+    quick_replies: ["Medical Team 👩‍⚕️", "Health Records 📋", "Parent Communication 📞"],
+    relatedTopics: ["communication", "medical_team", "health_records"]
+},
+
+'medical_contact': {
+    keywords: ['contact', 'medical query', 'whom to contact', 'medical office', 'nurse office'],
+    answer: "☎️ Medical Queries:\n\nFor any questions about medical services, parents can reach out directly to the school’s Administrative Office or Medical Team for assistance.",
+    quick_replies: ["Doctor Consultation 🩺", "Parent Notification 📞", "Emergency 🚨"],
+    relatedTopics: ["doctor_consult", "parent_notification", "emergency"]
+},
+ 'sports_photos': {
                 keywords: ["sports photo", "sports images","games photo", "athletics image", "sports ground"],
                 answer: "Vantage Hall offers world-class sports facilities and coaching for various activities:",
                 media: [
