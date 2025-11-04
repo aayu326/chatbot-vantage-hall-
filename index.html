@@ -6,6 +6,33 @@
     <title>Vantage Hall Chatbot</title>
 
     <style>
+
+
+/* Remove white background completely */
+.chatbot-container,
+.chatbot-box,
+.chatbot-body,
+.chat-window,
+.chat-wrapper {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Optional: make it look glassy instead of fully transparent */
+.chatbot-box {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Ensure text remains visible */
+.chatbot-box * {
+  color: #fff !important;
+}
+
+
         /* AAPKA EXACT SAME CSS - NO CHANGES */
         * {
             margin: 0;
