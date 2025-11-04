@@ -8,36 +8,40 @@
     <style>
 
 
-/* Remove white background completely */
-.chatbot-container,
-.chatbot-box,
-.chatbot-body,
-.chat-window,
-.chat-wrapper {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* Optional: make it look glassy instead of fully transparent */
-.chatbot-box {
-  background: rgba(255, 255, 255, 0.15) !important;
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-/* Ensure text remains visible */
-.chatbot-box * {
-  color: #fff !important;
-}
 
 
         /* AAPKA EXACT SAME CSS - NO CHANGES */
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            box-sizing: border-box;/* Make chatbot background transparent */
+iframe#chatbot-frame,
+.chatbot-container,
+.chatbot-box,
+.chat-window,
+.chat-area {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Remove any white layer or pseudo element background */
+iframe#chatbot-frame *,
+.chatbot-container *,
+.chatbot-box *,
+.chat-window *,
+.chat-area * {
+  background: transparent !important;
+}
+
+/* Optional: if you want a soft glass effect instead of full transparent */
+.chatbot-box {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
         }
 
 
